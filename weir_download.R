@@ -61,23 +61,27 @@ fetch_weir_image <- function(name) {
 modified_time <- get_last_modified("stage")
 file_date <- format(modified_time, "%Y%m%d")
 
-# Find the most recently saved stage file to compare against
+# Find the most recently saved stage file to compare against.
+# Compare against the date embedded in the filename, not file mtime: git does
+# not preserve modification times, so on each Actions checkout every file's
+# mtime is reset to "now", which would make the script think it is always
+# up to date and never download.
 existing_files <- list.files(
   "pics",
   pattern = "_weir_stage\\.png$",
-  full.names = TRUE
+  full.names = FALSE
 )
 
 needs_update <- if (length(existing_files) == 0) {
   TRUE
 } else {
-  latest_local <- max(file.mtime(existing_files))
-  modified_time > latest_local
+  latest_date <- max(substr(existing_files, 1, 8))
+  file_date > latest_date
 }
 
 if (!needs_update) {
   cli::cli_alert_info(
-    "Images are up to date (server: {format(modified_time)}). Skipping download."
+    "Images are up to date (server date: {file_date}). Skipping download."
   )
 } else {
   # ── Download ───────────────────────────────────────────────────────────────
