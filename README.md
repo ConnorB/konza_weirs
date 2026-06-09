@@ -4,7 +4,7 @@ Fetches and saves weir monitoring images from the [Konza Prairie LTER](https://l
 
 ## Latest Discharge
 
-![](pics/20260608_weir_discharge.png 'Discharge for the four weirs at Konza Prairie LTER (N01B, N02B, N04D, and N20B)')
+![](pics/20260609_weir_discharge.png 'Discharge for the four weirs at Konza Prairie LTER (N01B, N02B, N04D, and N20B)')
 
 ## Overview
 
